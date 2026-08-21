@@ -171,8 +171,8 @@ const validatePassword = (blur) => {
 }
 
 const validateReason = (blur) => {
-  if (formData.value.reason.trim().length === 0) {
-    if (blur) errors.value.reason = 'Please tell us your reason for joining'
+  if (formData.value.reason.trim().length < 10) {
+    if (blur) errors.value.reason = 'Please provide at least 10 characters explaining your reason'
   } else {
     errors.value.reason = null
   }
