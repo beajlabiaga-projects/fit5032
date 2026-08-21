@@ -140,8 +140,15 @@ const errors = ref({
 })
 
 const validateName = (blur) => {
-  if (formData.value.username.length < 3) {
+  const username = formData.value.username
+  const validFormat = /^[a-zA-Z0-9]+$/.test(username)
+
+  if (username.length < 3) {
     if (blur) errors.value.username = 'Name must be at least 3 characters'
+  } else if (!validFormat) {
+    if (blur)
+      errors.value.username =
+        'Username can only contain letters and numbers (no spaces or special characters)'
   } else {
     errors.value.username = null
   }
