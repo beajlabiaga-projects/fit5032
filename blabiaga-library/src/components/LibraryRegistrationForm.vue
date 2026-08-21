@@ -44,11 +44,19 @@
             </div>
             <div class="col-6">
               <label for="gender" class="form-label">Gender</label>
-              <select class="form-select" id="gender" v-model="formData.gender">
+              <select
+                class="form-select"
+                id="gender"
+                @blur="() => validateGender(true)"
+                @change="() => validateGender(false)"
+                v-model="formData.gender"
+              >
+                <option value="" disabled selected>Select gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
               </select>
+              <div v-if="errors.gender" class="text-danger">{{ errors.gender }}</div>
             </div>
           </div>
           <div class="mb-3">
@@ -110,7 +118,14 @@ const submittedCards = ref([])
 const submitForm = () => {
   validateName(true)
   validatePassword(true)
-  if (!errors.value.username && !errors.value.password) {
+  validateReason(true)
+  validateGender(true)
+  if (
+    !errors.value.username &&
+    !errors.value.password &&
+    !errors.value.reason &&
+    !errors.value.gender
+  ) {
     submittedCards.value.push({ ...formData.value })
     clearForm()
   }
@@ -170,6 +185,14 @@ const validateReason = (blur) => {
     if (blur) errors.value.reason = 'Please tell us your reason for joining'
   } else {
     errors.value.reason = null
+  }
+}
+
+const validateGender = (blur) => {
+  if (formData.value.gender === '') {
+    if (blur) errors.value.gender = 'Please select a gender'
+  } else {
+    errors.value.gender = null
   }
 }
 </script>
