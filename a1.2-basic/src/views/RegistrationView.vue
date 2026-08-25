@@ -108,3 +108,240 @@ const clearForm = () => {
   successMessage.value = ''
 }
 </script>
+
+<template>
+  <section class="registration-page">
+    <div class="registration-panel">
+      <header>
+        <p class="eyebrow">Account</p>
+        <h1>Create an account</h1>
+        <p>Enter your details to complete your registration.</p>
+      </header>
+
+      <form @submit.prevent="submitForm" novalidate>
+        <div class="form-field">
+          <label for="name">Full Name</label>
+          <input
+            id="name"
+            v-model="formData.name"
+            type="text"
+            autocomplete="name"
+            required
+            :aria-invalid="Boolean(errors.name)"
+            aria-describedby="name-error"
+            @blur="validateName(true)"
+            @input="validateName(false)"
+          />
+
+          <p v-if="errors.name" id="name-error" class="error-message" role="alert">
+            {{ errors.name }}
+          </p>
+        </div>
+
+        <div class="form-field">
+          <label for="email">Email address</label>
+          <input
+            id="email"
+            v-model="formData.email"
+            type="email"
+            autocomplete="email"
+            required
+            :aria-invalid="Boolean(errors.email)"
+            aria-describedby="email-error"
+            @blur="validateEmail(true)"
+            @input="validateEmail(false)"
+          />
+
+          <p v-if="errors.email" id="email-error" class="error-message" role="alert">
+            {{ errors.email }}
+          </p>
+        </div>
+
+        <div class="form-field">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            v-model="formData.password"
+            type="password"
+            autocomplete="new-password"
+            minlength="8"
+            required
+            :aria-invalid="Boolean(errors.password)"
+            aria-describedby="password-error"
+            @blur="validatePassword(true)"
+            @input="validatePassword(false)"
+          />
+
+          <p v-if="errors.password" id="password-error" class="error-message" role="alert">
+            {{ errors.password }}
+          </p>
+        </div>
+
+        <div class="form-field">
+          <label for="confirm-password">Confirm password</label>
+          <input
+            id="confirm-password"
+            v-model="formData.confirmPassword"
+            type="password"
+            autocomplete="new-password"
+            required
+            :aria-invalid="Boolean(errors.confirmPassword)"
+            aria-describedby="confirm-password-error"
+            @blur="validateConfirmPassword(true)"
+            @input="validateConfirmPassword(false)"
+          />
+          <p
+            v-if="errors.confirmPassword"
+            id="confirm-password-error"
+            class="error-message"
+            role="alert"
+          >
+            {{ errors.confirmPassword }}
+          </p>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit">Create account</button>
+          <button type="button" class="secondary-button" @click="clearForm">Clear</button>
+        </div>
+
+        <p v-if="successMessage" class="success-message" role="status">
+          {{ successMessage }}
+        </p>
+      </form>
+    </div>
+
+    <div class="image-placeholder" aria-hidden="true">
+      <span>Photo</span>
+    </div>
+  </section>
+</template>
+
+<style scoped>
+.registration-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
+  min-height: calc(100vh - 75px);
+  background-color: #ffffff;
+}
+
+.registration-panel {
+  padding: 4rem clamp(1.25rem, 6vw, 6rem);
+}
+
+.registration-panel header,
+form {
+  width: min(560px, 100%);
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: #2f6f44;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0 0 0.75rem;
+  color: #183d28;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+}
+
+form {
+  margin-top: 2rem;
+}
+
+.form-field {
+  margin-bottom: 1.25rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+}
+
+input {
+  width: 100%;
+  padding: 0.85rem;
+  color: #26352c;
+  background-color: #ffffff;
+  border: 1px solid #9aaba0;
+  border-radius: 0.4rem;
+}
+
+input:focus {
+  outline: 3px solid rgba(47, 111, 68, 0.2);
+  border-color: #2f6f44;
+}
+
+input[aria-invalid='true'] {
+  border-color: #b42318;
+}
+
+.error-message {
+  margin: 0.4rem 0 0;
+  color: #b42318;
+  font-size: 0.9rem;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+button {
+  padding: 0.85rem 1.5rem;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: #1f6a3a;
+  border: 1px solid #1f6a3a;
+  border-radius: 0.4rem;
+}
+
+button:hover {
+  background-color: #174f2c;
+}
+
+.secondary-button {
+  color: #1f5132;
+  background-color: #ffffff;
+}
+
+.secondary-button:hover {
+  background-color: #edf5ef;
+}
+
+.success-message {
+  padding: 1rem;
+  color: #174f2c;
+  background-color: #e5f4e9;
+  border-radius: 0.4rem;
+}
+
+.image-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  color: #607468;
+  background-color: #e8efea;
+  font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .registration-page {
+    grid-template-columns: 1fr;
+  }
+
+  .registration-panel {
+    padding: 3rem 1.25rem;
+  }
+
+  .image-placeholder {
+    display: none;
+  }
+}
+</style>
