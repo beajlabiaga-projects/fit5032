@@ -33,7 +33,15 @@ import { RouterLink } from 'vue-router'
   text-decoration: none;
 }
 
+nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
 nav a {
+  display: inline-block;
   color: #26352c;
   text-decoration: none;
 }
