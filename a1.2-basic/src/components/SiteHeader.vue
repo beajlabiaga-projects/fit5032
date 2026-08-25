@@ -4,12 +4,11 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <header class="site-header">
-    <RouterLink class="brand" to="/">
-      EcoGreen Connect Melbourne
-    </RouterLink>
+    <RouterLink class="brand" to="/"> EcoGreen Connect Melbourne </RouterLink>
 
     <nav aria-label="Main navigation">
       <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/discover">Discover</RouterLink>
       <RouterLink to="/about">About & Support</RouterLink>
     </nav>
   </header>
@@ -56,7 +55,7 @@ nav a.route-link-exact-active {
 @media (max-width: 575px) {
   .site-header {
     align-items: flex-start;
-    flex-direction:column;
+    flex-direction: column;
   }
 }
 </style>
