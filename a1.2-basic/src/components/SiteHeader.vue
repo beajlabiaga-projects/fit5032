@@ -52,10 +52,14 @@ nav a.route-link-exact-active {
   text-underline-offset: 0.3rem;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 768px) {
   .site-header {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  nav {
+    width: 100%;
   }
 }
 </style>
