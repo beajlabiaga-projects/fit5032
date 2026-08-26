@@ -7,8 +7,8 @@ import { RouterLink } from 'vue-router'
     <RouterLink class="brand" to="/"> EcoGreen Connect Melbourne </RouterLink>
 
     <nav aria-label="Main navigation">
-      <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/discover">Discover</RouterLink>
+      <RouterLink to="/register">Account</RouterLink>
       <RouterLink to="/about">About & Support</RouterLink>
     </nav>
   </header>

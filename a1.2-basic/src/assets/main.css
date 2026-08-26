@@ -3,13 +3,12 @@
 }
 
 html {
-  font-family:
-    Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   color: #26352c;
   background-color: #f7faf8;
 }
 
-body{
+body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
@@ -27,5 +26,5 @@ a {
 }
 
 #app {
-  min-height: 100vh
+  min-height: 100vh;
 }

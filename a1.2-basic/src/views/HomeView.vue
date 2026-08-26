@@ -6,7 +6,8 @@
       <h1>Take local action for a greener Melbourne</h1>
 
       <p class="introduction">
-        Find environmental initiatives, learn about urban biodiversity, and connect with people working to make Melbourne greener.
+        Find environmental initiatives, learn about urban biodiversity, and connect with people
+        working to make Melbourne greener.
       </p>
     </div>
   </section>
