@@ -95,7 +95,7 @@ const submitForm = () => {
             @input="validatePassword(false)"
           />
 
-          <p v-if="errors.password" id="login-password-error" class="error=message" role="alert">
+          <p v-if="errors.password" id="login-password-error" class="error-message" role="alert">
             {{ errors.password }}
           </p>
         </div>
@@ -127,7 +127,7 @@ const submitForm = () => {
 }
 .login-panel header,
 form {
-  width: min(560, 100%);
+  width: min(560px, 100%);
 }
 
 .eyebrow {
@@ -169,7 +169,7 @@ input:focus {
   outline: 3px solid rgba(31, 122, 67, 0.2);
 }
 
-input[aria-invalid+'true'] {
+input[aria-invalid='true'] {
   border-color: #b3261e;
 }
 
@@ -220,7 +220,7 @@ a:focus-visible {
   background-color: #e8efea;
 }
 
-/* Stacj the login content on smaller screens*/
+/* Stack the login content on smaller screens*/
 @media (max-width: 768px) {
   .login-page {
     grid-template-columns: 1fr;
@@ -230,7 +230,7 @@ a:focus-visible {
     padding: 3rem 1.25rem;
   }
 
-  .image-laceholder {
+  .image-placeholder {
     display: none;
   }
 }
