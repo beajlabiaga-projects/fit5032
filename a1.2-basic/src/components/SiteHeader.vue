@@ -8,7 +8,16 @@ import { RouterLink } from 'vue-router'
 
     <nav aria-label="Main navigation">
       <RouterLink to="/discover">Discover</RouterLink>
-      <RouterLink to="/login">Account</RouterLink>
+
+      <details class="account-menu>">
+        <summary>Account</summary>
+
+        <div class="account-options">
+          <RouterLink to="/login">Log in</RouterLink>
+          <RouterLink to="/register">Register</RouterLink>
+        </div>
+      </details>
+
       <RouterLink to="/about">About & Support</RouterLink>
     </nav>
   </header>
@@ -52,6 +61,49 @@ nav a.router-link-exact-active {
   text-underline-offset: 0.3rem;
 }
 
+.account-menu {
+  position: relative;
+}
+
+.account-menu summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.account-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.account-menu summary:hover {
+  color: #1f7a43;
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.account-menu summary:focus-visible {
+  outline: 3px solid #2167d5;
+  outline-offset: 3px;
+}
+
+.account-options {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  display: grid;
+  min-width: 140px;
+  padding: 0.5rem;
+  background-color: #ffffff;
+  border: 1px solid #d9e2dc;
+  border-radius: 0.4rem;
+  box-shadow: 0 0.4rem 1rem rgba(24, 61, 40, 0.12);
+}
+
+.account-optons a {
+  padding: 0.65rem 0.75rem;
+  white-space: nowrap;
+}
+
 @media (max-width: 768px) {
   .site-header {
     align-items: flex-start;
@@ -60,6 +112,11 @@ nav a.router-link-exact-active {
 
   nav {
     width: 100%;
+  }
+
+  .account-options {
+    right: auto;
+    left: 0;
   }
 }
 </style>
