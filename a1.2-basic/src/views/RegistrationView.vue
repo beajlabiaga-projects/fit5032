@@ -16,7 +16,7 @@ const errors = ref({
 })
 
 const successMessage = ref('')
-
+// Validate each field so users can receive an error message//
 const validateName = (blur) => {
   const name = formData.value.name.trim()
 
@@ -74,7 +74,7 @@ const validateConfirmPassword = (blur) => {
     errors.value.confirmPassword = null
   }
 }
-
+// Run every validation before accepting the registration form//
 const submitForm = () => {
   successMessage.value = ''
 
@@ -82,7 +82,7 @@ const submitForm = () => {
   validateEmail(true)
   validatePassword(true)
   validateConfirmPassword(true)
-
+  // Checks if a field still has any errors//
   const hasErrors = Object.values(errors.value).some((error) => error !== null)
 
   if (!hasErrors) {
@@ -330,7 +330,7 @@ button:hover {
   background-color: #e8efea;
   font-size: 1.25rem;
 }
-
+/* Stack form into one column on smaller screens, to avoid horizontal scrolling. */
 @media (max-width: 768px) {
   .registration-page {
     grid-template-columns: 1fr;

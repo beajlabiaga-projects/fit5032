@@ -1,3 +1,4 @@
+// sample initiative data for generating the cards on Discover page//
 export const initiatives = [
   {
     id: 1,
@@ -23,7 +24,7 @@ export const initiatives = [
     category: 'Urban Greening',
     location: 'Fitzroy Community Garden',
     date: '26 September 2026',
-    description: 'Assist with plantingn, mulching and maintaining community garden.',
+    description: 'Assist with planting, mulching and maintaining community garden.',
     availability: 'Places available',
   },
 ]

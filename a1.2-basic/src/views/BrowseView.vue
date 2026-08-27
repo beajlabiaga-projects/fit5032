@@ -8,9 +8,9 @@ import { initiatives } from '@/data/initiatives.js'
     <header class="page-heading">
       <p class="eyebrow">Discover</p>
       <h1>Browse Local Initiatives</h1>
-      <p>Explore envoronmental activities taking place across Melbourne.</p>
+      <p>Explore environmental activities taking place across Melbourne.</p>
     </header>
-
+    <!-- Generate one reusable card for each initiative in the data array -->
     <div class="initiative-grid">
       <InitiativeCard
         v-for="initiative in initiatives"

@@ -17,7 +17,7 @@ body {
 button,
 input,
 select,
-text-area {
+textarea {
   font: inherit;
 }
 
