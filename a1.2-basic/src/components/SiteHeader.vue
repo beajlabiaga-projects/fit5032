@@ -8,7 +8,8 @@ import { RouterLink } from 'vue-router'
 
     <nav aria-label="Main navigation">
       <RouterLink to="/discover">Discover</RouterLink>
-      <RouterLink to="/register">Account</RouterLink>
+      <RouterLink to="/login">Log in</RouterLink>
+      <RouterLink to="/register">Register</RouterLink>
       <RouterLink to="/about">About & Support</RouterLink>
     </nav>
   </header>
