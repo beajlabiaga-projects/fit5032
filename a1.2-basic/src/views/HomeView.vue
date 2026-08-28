@@ -1,3 +1,6 @@
+<script setup>
+import { RouterLink } from 'vue-router'
+</script>
 <template>
   <section class="home">
     <div class="home-content">
@@ -9,6 +12,7 @@
         Find environmental initiatives, learn about urban biodiversity, and connect with people
         working to make Melbourne greener.
       </p>
+      <RouterLink to="/learn" class="learn-button">Learn more</RouterLink>
     </div>
   </section>
 </template>
@@ -63,6 +67,29 @@ h1 {
   line-height: 1.7;
 }
 
+.learn-button {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.85rem 1.5rem;
+  color: #183d28;
+  background-color: #fff;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.learn_button:hover {
+  background-color: #d8f0df;
+  transform: translateY(-2px);
+}
+
+.learn-button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+}
 @media (max-width: 575px) {
   .home {
     transform: none;
