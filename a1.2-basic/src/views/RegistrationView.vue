@@ -47,6 +47,7 @@ const validatePassword = (blur) => {
   const hasUppercase = /[A-Z]/.test(password)
   const hasLowercase = /[a-z]/.test(password)
   const hasNumber = /\d/.test(password)
+  const hasSpecialCharacter = /[!@#$%^&*(),.?":{}|<>]/.test(password)
 
   if (!password) {
     if (blur) errors.value.password = 'Password is required.'
@@ -58,6 +59,8 @@ const validatePassword = (blur) => {
     if (blur) errors.value.password = 'Password must contain at least one lowercase letter.'
   } else if (!hasNumber) {
     if (blur) errors.value.password = 'Password must contain at least one number.'
+  } else if (!hasSpecialCharacter) {
+    if (blur) errors.value.password = 'Password must contain at least one special character.'
   } else {
     errors.value.password = null
   }
