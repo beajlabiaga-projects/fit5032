@@ -28,6 +28,11 @@ defineProps({
         <dt>Date</dt>
         <dd>{{ initiative.date }}</dd>
       </div>
+
+      <div>
+        <dt>Accessibility</dt>
+        <dd>{{ initiative.accessibility }}</dd>
+      </div>
     </dl>
 
     <p class="availability">{{ initiative.availability }}</p>
@@ -77,7 +82,6 @@ h2 {
 }
 
 .description {
-  flex-grow: 1;
   line-height: 1.6;
 }
 
