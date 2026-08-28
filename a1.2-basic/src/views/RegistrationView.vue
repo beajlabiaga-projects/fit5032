@@ -203,6 +203,13 @@ const clearForm = () => {
             @blur="validateConfirmPassword(true)"
             @input="validateConfirmPassword(false)"
           />
+          <!--Vue v-model bound checkbox-->
+          <!--https://vuejs.org/guide/essentials/forms.html-->
+          <label class="show-password">
+            <input v-model="showPassword" type="checkbox" />
+            Show Password
+          </label>
+
           <p
             v-if="errors.confirmPassword"
             id="confirm-password-error"
