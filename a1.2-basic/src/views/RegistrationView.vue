@@ -18,6 +18,8 @@ const errors = ref({
 })
 
 const successMessage = ref('')
+
+const showPassword = ref(false)
 // Validate each field so users can receive an error message//
 const validateName = (blur) => {
   const name = formData.value.name.trim()
@@ -167,7 +169,7 @@ const clearForm = () => {
           <input
             id="password"
             v-model="formData.password"
-            type="password"
+            type="showPassword ? 'text' : 'password'"
             autocomplete="new-password"
             minlength="8"
             required
@@ -176,6 +178,12 @@ const clearForm = () => {
             @blur="validatePassword(true)"
             @input="validatePassword(false)"
           />
+          <!--Vue v-model bound checkbox-->
+          <!--https://vuejs.org/guide/essentials/forms.html#checkbox-->
+          <label class="show-password">
+            <input v-model="showPassword" type="checkbox" />
+            Show Password
+          </label>
 
           <p v-if="errors.password" id="password-error" class="error-message" role="alert">
             {{ errors.password }}
@@ -348,6 +356,18 @@ button:hover {
   height: 100%;
   min-height: 100%;
   object-fit: cover;
+}
+.show-password {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.show-password input {
+  width: auto;
 }
 /* Stack form into one column on smaller screens, to avoid horizontal scrolling. */
 /*Guide on CSS responsiveness and media queriess*/

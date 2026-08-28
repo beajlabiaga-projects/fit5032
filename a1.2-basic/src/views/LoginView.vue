@@ -15,6 +15,8 @@ const errors = ref({
 
 const successMessage = ref('')
 
+const showPassword = ref(false)
+
 // Validate the email and provide feedback when user leaves field.//
 const validateEmail = (blur) => {
   const email = formData.value.email.trim()
@@ -87,7 +89,7 @@ const submitForm = () => {
           <input
             id="login-password"
             v-model="formData.password"
-            type="password"
+            :type="showPassword ? 'text' : 'password'"
             autocomplete="current-password"
             required
             :aria-invalid="Boolean(errors.password)"
@@ -95,6 +97,12 @@ const submitForm = () => {
             @blur="validatePassword(true)"
             @input="validatePassword(false)"
           />
+          <!--Vue v-model bound checkbox-->
+          <!--https://vuejs.org/guide/essentials/forms.html#checkbox-->
+          <label class="show-password">
+            <input v-model="showPassword" type="checkbox" />
+            Show password
+          </label>
 
           <p v-if="errors.password" id="login-password-error" class="error-message" role="alert">
             {{ errors.password }}
@@ -223,6 +231,18 @@ a:focus-visible {
   object-fit: cover;
 }
 
+.show-password {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.show-password input {
+  width: auto;
+}
 /* Stack the login content on smaller screens*/
 /*Guide on CSS responsivenes and media queries*/
 /* https://developer.mozilla.org/en-US/docs/Web/CSS */
