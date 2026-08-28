@@ -20,7 +20,6 @@ const errors = ref({
 const successMessage = ref('')
 
 const showPassword = ref(false)
-const showConfirmPassword = ref(false)
 // Validate each field so users can receive an error message//
 const validateName = (blur) => {
   const name = formData.value.name.trim()
@@ -170,7 +169,7 @@ const clearForm = () => {
           <input
             id="password"
             v-model="formData.password"
-            type="showPassword ? 'text' : 'password'"
+            :type="showPassword ? 'text' : 'password'"
             autocomplete="new-password"
             minlength="8"
             required
@@ -190,7 +189,7 @@ const clearForm = () => {
           <input
             id="confirm-password"
             v-model="formData.confirmPassword"
-            type="showPassword ? 'text' : 'password'"
+            :type="showPassword ? 'text' : 'password'"
             autocomplete="new-password"
             required
             :aria-invalid="Boolean(errors.confirmPassword)"
@@ -202,7 +201,7 @@ const clearForm = () => {
           <!--https://vuejs.org/guide/essentials/forms.html-->
           <label class="show-password">
             <input v-model="showPassword" type="checkbox" />
-            Show Password
+            Show Passwords
           </label>
 
           <p
