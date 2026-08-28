@@ -47,7 +47,7 @@ const submitForm = () => {
   const hasErrors = Object.values(errors.value).some((error) => error !== null)
 
   if (!hasErrors) {
-    successMessage.value = 'Login details are valid.'
+    successMessage.value = 'Login details are valid. Login form submitted.'
   }
 }
 </script>
@@ -102,6 +102,10 @@ const submitForm = () => {
 
         <button type="submit">Log in</button>
 
+        <p v-if="successMessage" class="success-message" role="status">
+          {{ successMessage }}
+        </p>
+
         <p class="register-link">
           Don't have an account?
           <RouterLink to="/register">Create an account</RouterLink>
@@ -120,7 +124,7 @@ const submitForm = () => {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
   min-height: calc(100vh - 75px);
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .login-panel {
   padding: 4rem clamp(1.25rem, 6vw, 6rem);

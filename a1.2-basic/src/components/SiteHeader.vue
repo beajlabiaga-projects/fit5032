@@ -9,7 +9,7 @@ import { RouterLink } from 'vue-router'
     <nav aria-label="Main navigation">
       <RouterLink to="/discover">Discover</RouterLink>
 
-      <details class="account-menu>">
+      <details class="account-menu">
         <summary>Account</summary>
 
         <div class="account-options">
@@ -30,7 +30,7 @@ import { RouterLink } from 'vue-router'
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem 5%;
-  background-color: #ffffff;
+  background-color: #fff;
   border-bottom: 1px solid #d9e2dc;
 }
 
@@ -93,13 +93,13 @@ nav a.router-link-exact-active {
   display: grid;
   min-width: 140px;
   padding: 0.5rem;
-  background-color: #ffffff;
+  background-color: #fff;
   border: 1px solid #d9e2dc;
   border-radius: 0.4rem;
   box-shadow: 0 0.4rem 1rem rgba(24, 61, 40, 0.12);
 }
 
-.account-optons a {
+.account-options a {
   padding: 0.65rem 0.75rem;
   white-space: nowrap;
 }
