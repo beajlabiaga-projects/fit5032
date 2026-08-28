@@ -15,7 +15,7 @@ const closeAccountMenu = () => {
 
     <nav aria-label="Main navigation">
       <RouterLink to="/discover">Discover</RouterLink>
-
+      <RouterLink to="/learn">Learn</RouterLink>
       <details ref="accountMenu" class="account-menu">
         <summary>Account</summary>
 
