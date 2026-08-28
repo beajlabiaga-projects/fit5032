@@ -179,7 +179,7 @@ const clearForm = () => {
             @input="validatePassword(false)"
           />
           <!--Vue v-model bound checkbox-->
-          <!--https://vuejs.org/guide/essentials/forms.html#checkbox-->
+          <!--https://vuejs.org/guide/essentials/forms.html-->
           <label class="show-password">
             <input v-model="showPassword" type="checkbox" />
             Show Password
