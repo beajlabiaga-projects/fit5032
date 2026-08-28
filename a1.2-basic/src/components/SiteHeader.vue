@@ -1,5 +1,12 @@
 <script setup>
+import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
+
+const accountMenu = ref(null)
+
+const closeAccountMenu = () => {
+  accountMenu.value?.removeAttribute('open')
+}
 </script>
 
 <template>
@@ -9,12 +16,12 @@ import { RouterLink } from 'vue-router'
     <nav aria-label="Main navigation">
       <RouterLink to="/discover">Discover</RouterLink>
 
-      <details class="account-menu">
+      <details ref="accountMenu" class="account-menu">
         <summary>Account</summary>
 
         <div class="account-options">
-          <RouterLink to="/login">Log in</RouterLink>
-          <RouterLink to="/register">Register</RouterLink>
+          <RouterLink to="/login" @click="closeAccountMenu">Log in</RouterLink>
+          <RouterLink to="/register" @click="closeAccountMenu">Register</RouterLink>
         </div>
       </details>
 
