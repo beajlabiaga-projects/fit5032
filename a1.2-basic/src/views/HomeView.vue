@@ -1,7 +1,3 @@
-<script setup>
-import homePageImage from '../assets/images/home-page.jpg'
-</script>
-
 <template>
   <section class="home">
     <div class="home-content">

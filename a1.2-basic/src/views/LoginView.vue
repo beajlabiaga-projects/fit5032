@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import loginImage from '../assets/images/login.jpg'
 
 const formData = ref({
   email: '',
@@ -113,9 +114,7 @@ const submitForm = () => {
       </form>
     </div>
 
-    <div class="image-placeholder" aria-hidden="true">
-      <span>Photo</span>
-    </div>
+    <img class="login-image" :src="loginImage" alt="Pretty buttefly resting on white flower." />
   </section>
 </template>
 
@@ -124,7 +123,7 @@ const submitForm = () => {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
   min-height: calc(100vh - 75px);
-  background-color: #fff;
+  background-color: #f3f1e8;
 }
 .login-panel {
   padding: 4rem clamp(1.25rem, 6vw, 6rem);
@@ -217,11 +216,11 @@ a:focus-visible {
   font-weight: 700;
 }
 
-.image-placeholder {
-  display: grid;
-  place-items: center;
-  color: #607468;
-  background-color: #e8efea;
+.login-image {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  object-fit: cover;
 }
 
 /* Stack the login content on smaller screens*/
@@ -236,7 +235,7 @@ a:focus-visible {
     padding: 3rem 1.25rem;
   }
 
-  .image-placeholder {
+  .login-image {
     display: none;
   }
 }

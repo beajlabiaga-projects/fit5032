@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue'
+import registrationImage from '../assets/images/registration.jpg'
+import { RouterLink } from 'vue-router'
 
 const formData = ref({
   name: '',
@@ -211,12 +213,19 @@ const clearForm = () => {
         <p v-if="successMessage" class="success-message" role="status">
           {{ successMessage }}
         </p>
+
+        <p class="login-link">
+          Already have an account?
+          <RouterLink to="/login">Log in</RouterLink>
+        </p>
       </form>
     </div>
 
-    <div class="image-placeholder" aria-hidden="true">
-      <span>Photo</span>
-    </div>
+    <img
+      class="registration-image"
+      :src="registrationImage"
+      alt="Blue and yellow bird perched on a branch."
+    />
   </section>
 </template>
 
@@ -225,7 +234,7 @@ const clearForm = () => {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
   min-height: calc(100vh - 75px);
-  background-color: #ffffff;
+  background-color: #f3f1e8;
 }
 
 .registration-panel {
@@ -325,13 +334,20 @@ button:hover {
   border-radius: 0.4rem;
 }
 
-.image-placeholder {
-  display: grid;
-  place-items: center;
+.login-link {
+  margin-top: 1.5rem;
+}
+
+.login-link a {
+  color: #1f7a43;
+  font-weight: 700;
+}
+
+.registration-image {
+  width: 100%;
+  height: 100%;
   min-height: 100%;
-  color: #607468;
-  background-color: #e8efea;
-  font-size: 1.25rem;
+  object-fit: cover;
 }
 /* Stack form into one column on smaller screens, to avoid horizontal scrolling. */
 /*Guide on CSS responsiveness and media queriess*/
@@ -345,7 +361,7 @@ button:hover {
     padding: 3rem 1.25rem;
   }
 
-  .image-placeholder {
+  .registration-image {
     display: none;
   }
 }
