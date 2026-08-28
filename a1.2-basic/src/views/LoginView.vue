@@ -225,6 +225,8 @@ a:focus-visible {
 }
 
 /* Stack the login content on smaller screens*/
+/*Guide on CSS responsivenes and media queries*/
+/* https://developer.mozilla.org/en-US/docs/Web/CSS */
 @media (max-width: 768px) {
   .login-page {
     grid-template-columns: 1fr;

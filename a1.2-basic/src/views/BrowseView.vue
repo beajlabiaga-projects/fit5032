@@ -55,7 +55,8 @@ h1 {
   grid-template-columns: 1fr;
   gap: 2rem;
 }
-
+/*Guide on CSS responsiveness and media queries/
+/* https://developer.mozilla.org/en-US/docs/Web/CSS */
 @media (min-width: 576px) {
   .initiative-grid {
     grid-template-columns: repeat(2, 1fr);

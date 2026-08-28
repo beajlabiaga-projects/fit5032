@@ -334,6 +334,8 @@ button:hover {
   font-size: 1.25rem;
 }
 /* Stack form into one column on smaller screens, to avoid horizontal scrolling. */
+/*Guide on CSS responsiveness and media queriess*/
+/* https://developer.mozilla.org/en-US/docs/Web/CSS */
 @media (max-width: 768px) {
   .registration-page {
     grid-template-columns: 1fr;

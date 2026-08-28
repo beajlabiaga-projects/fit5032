@@ -18,6 +18,8 @@ import homePageImage from '../assets/images/home-page.jpg'
 </template>
 
 <style scoped>
+/*Guide on CSS responsiveness, media queries, background images, gradients*/
+/* https://developer.mozilla.org/en-US/docs/Web/CSS */
 .home {
   display: flex;
   grid-template-columns: 1.1fr 0.9fr;

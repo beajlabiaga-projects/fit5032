@@ -49,7 +49,8 @@ defineProps({
   border-radius: 0.75rem;
   box-shadow: 0 0.25rem 1rem rgba(24, 61, 40, 0.08);
 }
-
+/*Guide on CSS responsiveness, background layouts and gradients*/
+/* https://developer.mozilla.org/en-US/docs/Web/CSS */
 .card-image {
   display: grid;
   place-items: center;
