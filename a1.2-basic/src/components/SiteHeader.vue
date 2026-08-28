@@ -14,8 +14,8 @@ const closeAccountMenu = () => {
     <RouterLink class="brand" to="/"> EcoGreen Connect Melbourne </RouterLink>
 
     <nav aria-label="Main navigation">
-      <RouterLink to="/discover">Discover</RouterLink>
       <RouterLink to="/learn">Learn</RouterLink>
+      <RouterLink to="/discover">Discover</RouterLink>
       <details ref="accountMenu" class="account-menu">
         <summary>Account</summary>
 

@@ -11,20 +11,24 @@ import { facts } from '../data/facts'
     </section>
 
     <section class="facts-grid" aria-label="Environmental facts">
-      <article v-for="fact in facts" :key="fact.id" class="fact-card">
-        <p class="fact-number">{{ fact.number }}</p>
-        <h2>{{ fact.title }}</h2>
-        <p>{{ fact.description }}</p>
+      <article v-for="fact in facts" :key="fact.id" class="fact-section">
+        <img :src="fact.image" :alt="fact.imageAlt" class="fact-image" />
 
-        <a :href="fact.sourceUrl" target="_blank" rel="noopener noreferrer" class="source-link">
-          Source: {{ fact.sourceName }}
-        </a>
+        <div class="fact-content">
+          <p class="fact-number">{{ fact.number }}</p>
+          <h2>{{ fact.title }}</h2>
+          <p>{{ fact.description }}</p>
+
+          <a :href="fact.sourceURL" target="_blank" rel="noopener noreferrer" class="source-link">
+            Source: {{ fact.sourceName }}
+          </a>
+        </div>
       </article>
     </section>
   </main>
 </template>
 
-<style scope>
+<style scoped>
 .learn-page {
   min-height: calc(100vh - 70px);
   padding: 4rem 8%;
@@ -49,30 +53,50 @@ h1 {
 }
 
 .facts-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5 rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
 }
 
-.fact-card {
-  padding: 2rem;
+.fact-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  overflow: hidden;
   background-color: #fff;
   border-radius: 0.75rem;
-  box-shadow: 0 8px rgba(24, 61, 20, 0.08);
+}
+
+.fact-section:nth-child(even) .fact-image {
+  order: 2;
+}
+
+.fact-image {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+}
+
+.fact-content {
+  padding: 3rem;
 }
 
 .fact-number {
-  margin: 0;
-  color: #2f6f44;
-  font-size: 2.5rem;
+  margin: 0 0 0.75rem;
+  color: #2f7d4b;
+  font-size: clamp(2.5rem, 4vw, 4rem);
   font-weight: 700;
+  line-height: 1;
 }
 
-.fact-card h2 {
+.fact-section h2 {
+  margin: 0 0 1rem;
   color: #183d28;
+  font-size: clamp(2.5rem, 4vw, 3rem);
+  line-height: 1.2;
 }
 
-source-link {
+.source-link {
   display: inline-block;
   margin-top: 1rem;
   color: #24733f;
@@ -83,8 +107,21 @@ source-link {
   .learn-page {
     padding: 3rem 5%;
   }
-  .facts-grid {
+  .fact-section {
     grid-template-columns: 1fr;
+  }
+  /* Alternates image postion for even numbered facts section*/
+  /*https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/Pseudo-classes*/
+  .fact-section:nth-child(even) .fact-image {
+    order: 0;
+  }
+
+  .fact-image {
+    height: 250px;
+  }
+
+  .fact-content {
+    padding: 2rem;
   }
 }
 </style>
