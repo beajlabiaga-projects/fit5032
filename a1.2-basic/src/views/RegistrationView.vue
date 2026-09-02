@@ -93,7 +93,27 @@ const submitForm = () => {
   const hasErrors = Object.values(errors.value).some((error) => error !== null)
 
   if (!hasErrors) {
-    successMessage.value = 'Registration details are valid. Registration form has been submitted.'
+    const storedUsers = JSON.parse(localStorage.getItem('ecogreenUsers')) || []
+    const normalisedEmail = formData.value.email.trim().toLowerCase()
+
+    const accountExists = storedUsers.some((user) => user.email == normalisedEmail)
+
+    if (accountExists) {
+      errors.value.email = 'An account already exists with this email address.'
+      return
+    }
+
+    const newUser = {
+      name: formData.value.name.trim(),
+      email: normalisedEmail,
+      password: formData.value.password,
+    }
+
+    storedUsers.push(newUser)
+
+    localStorage.setItem('ecogreenUsers', JSON.stringify(storedUsers))
+
+    successMessage.value = 'Registration successful. Log in with your account.'
   }
 }
 

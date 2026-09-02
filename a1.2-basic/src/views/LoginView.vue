@@ -40,7 +40,7 @@ const validatePassword = (blur) => {
   }
 }
 
-// Validates details but cant confirm if the account already exists (has no database yet to store registered details)//
+// Validates form and compares if details exists in local storage.//
 const submitForm = () => {
   successMessage.value = ''
 
@@ -50,7 +50,19 @@ const submitForm = () => {
   const hasErrors = Object.values(errors.value).some((error) => error !== null)
 
   if (!hasErrors) {
-    successMessage.value = 'Login details are valid. Login form submitted.'
+    const storedUsers = JSON.parse(localStorage.getItem('ecogreenUsers')) || []
+    const normalisedEmail = formData.value.email.trim().toLowerCase()
+
+    const matchingUser = storedUsers.find(
+      (user) => user.email === normalisedEmail && user.password === formData.value.password,
+    )
+
+    if (!matchingUser) {
+      errors.value.password = 'Email or password is incorrect.'
+      return
+    }
+
+    successMessage.value = `Hello and welcome back, ${matchingUser.name}!`
   }
 }
 </script>
