@@ -89,9 +89,10 @@ const submitForm = () => {
   validateEmail(true)
   validatePassword(true)
   validateConfirmPassword(true)
-  // Checks if a field still has any errors//
-  const hasErrors = Object.values(errors.value).some((error) => error !== null)
 
+  const hasErrors = Object.values(errors.value).some((error) => error !== null)
+  // Stores and retrieves registered users using WEB Storage API//
+  //https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API //
   if (!hasErrors) {
     const storedUsers = JSON.parse(localStorage.getItem('ecogreenUsers')) || []
     const normalisedEmail = formData.value.email.trim().toLowerCase()
