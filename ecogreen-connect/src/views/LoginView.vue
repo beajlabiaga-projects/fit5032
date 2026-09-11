@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import loginImage from '../assets/images/login.jpg'
 import { startSession } from '../auth/session'
+import { useRouter } from 'vue-router'
 
 const formData = ref({
   email: '',
@@ -17,6 +18,8 @@ const errors = ref({
 const successMessage = ref('')
 
 const showPassword = ref(false)
+
+const router = useRouter()
 
 // Validate the email and provide feedback when user leaves field.//
 const validateEmail = (blur) => {
@@ -63,9 +66,14 @@ const submitForm = () => {
       errors.value.password = 'Email or password is incorrect.'
       return
     }
+
     //remember authenticated user after logging in
     startSession(matchingUser)
     successMessage.value = `Hello and welcome back, ${matchingUser.name}!`
+
+    startSession(matchingUser)
+    successMessage.value = `Hello and welcome back, ${matchingUser.name}!`
+    router.push('/')
   }
 }
 </script>
