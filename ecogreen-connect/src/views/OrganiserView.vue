@@ -3,7 +3,7 @@ import { currentUser } from '../auth/session'
 </script>
 
 <template>
-  <main class="organiser-page>">
+  <main class="organiser-page">
     <p class="eyebrow">Organiser</p>
     <h1>Organiser Dashboard</h1>
     <p>Welcome, {{ currentUser.name }}.</p>
