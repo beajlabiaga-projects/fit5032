@@ -108,6 +108,7 @@ const submitForm = () => {
       name: formData.value.name.trim(),
       email: normalisedEmail,
       password: formData.value.password,
+      role: 'member',
     }
 
     storedUsers.push(newUser)
