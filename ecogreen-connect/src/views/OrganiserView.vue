@@ -8,10 +8,10 @@ import { currentUser } from '../auth/session'
     <h1>Organiser Dashboard</h1>
     <p>Welcome, {{ currentUser.name }}.</p>
 
-    <section class="dashboard-card">
+    <RouterLink to="/organise/initiatives" class="dashboard-card">
       <h2>Manage Initiatives</h2>
-      <p>Create and manage environmental initiatives.</p>
-    </section>
+      <p>Create environmental initiatives and manage listings.</p>
+    </RouterLink>
   </main>
 </template>
 
@@ -36,9 +36,12 @@ import { currentUser } from '../auth/session'
 }
 
 .dashboard-card {
+  display: block;
   max-width: 600px;
   margin-top: 2rem;
   padding: 2rem;
+  color: inherit;
+  text-decoration: none;
   border: 1px solid #c8d2c9;
   border-radius: 12px;
   background-color: white;

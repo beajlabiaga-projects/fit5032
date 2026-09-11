@@ -44,6 +44,12 @@ const router = createRouter({
       meta: { requiresAuth: true, requiredRole: 'organiser' },
     },
     {
+      path: '/organise/initiatives',
+      name: 'manage-initiatives',
+      component: () => import('../views/ManageInitiativesView.vue'),
+      meta: { requiresAuth: true, requiredRole: 'organiser' },
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
