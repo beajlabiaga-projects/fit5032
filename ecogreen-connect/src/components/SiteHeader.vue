@@ -33,6 +33,7 @@ const logOut = () => {
         <!--Account menu changes depending on whether user is logged in-->
         <div class="account-options">
           <template v-if="isAuthenticated">
+            <RouterLink to="/profile" @click="closeAccountMenu">My Profile</RouterLink>
             <button type="button" @click="logOut">Log out</button>
           </template>
 
