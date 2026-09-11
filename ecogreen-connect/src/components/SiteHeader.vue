@@ -26,6 +26,7 @@ const logOut = () => {
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/learn">Learn</RouterLink>
       <RouterLink to="/discover">Discover</RouterLink>
+      <!--Only show 'organise' link to logged in organisers-->
       <RouterLink v-if="isAuthenticated && currentUser.role == 'organiser'" to="/organise"
         >Organise</RouterLink
       >
