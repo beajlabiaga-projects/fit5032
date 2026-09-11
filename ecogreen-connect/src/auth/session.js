@@ -12,7 +12,7 @@ export const startSession = (user) => {
   currentUser.value = {
     name: user.name,
     email: user.email,
-    role: user.role || 'EcoGreen Member',
+    role: user.role || 'member',
   }
   //Preserve current session with Web Storage API
   //https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API

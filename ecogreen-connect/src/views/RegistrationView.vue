@@ -2,10 +2,6 @@
 import { ref } from 'vue'
 import registrationImage from '../assets/images/registration.jpg'
 import { RouterLink } from 'vue-router'
-import { useRouter } from 'vue-router'
-import { startSession } from '../auth/session'
-
-const router = useRouter()
 
 const formData = ref({
   name: '',

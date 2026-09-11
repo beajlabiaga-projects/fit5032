@@ -26,6 +26,9 @@ const logOut = () => {
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/learn">Learn</RouterLink>
       <RouterLink to="/discover">Discover</RouterLink>
+      <RouterLink v-if="isAuthenticated && currentUser.role == 'organiser'" to="/organise"
+        >Organise</RouterLink
+      >
       <details ref="accountMenu" class="account-menu">
         <summary>
           {{ isAuthenticated ? currentUser.name : 'Account' }}

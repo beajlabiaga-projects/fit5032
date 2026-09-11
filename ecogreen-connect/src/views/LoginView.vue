@@ -4,6 +4,7 @@ import { RouterLink } from 'vue-router'
 import loginImage from '../assets/images/login.jpg'
 import { startSession } from '../auth/session'
 import { useRouter } from 'vue-router'
+import { organiserAccount } from '../data/accounts'
 
 const formData = ref({
   email: '',
@@ -58,8 +59,9 @@ const submitForm = () => {
     const storedUsers = JSON.parse(localStorage.getItem('ecogreenUsers')) || []
     const normalisedEmail = formData.value.email.trim().toLowerCase()
 
-    const matchingUser = storedUsers.find(
-      (user) => user.email === normalisedEmail && user.password === formData.value.password,
+    const availableUsers = [organiserAccount, ...storedUsers]
+    const matchingUser = availableUsers.find(
+      (user) => user.email == normalisedEmail && user.password == formData.value.password,
     )
 
     if (!matchingUser) {
@@ -67,12 +69,8 @@ const submitForm = () => {
       return
     }
 
-    //remember authenticated user after logging in
+    //remember authenticated user after logging in and redirect to home page when logged in
     startSession(matchingUser)
-    successMessage.value = `Hello and welcome back, ${matchingUser.name}!`
-
-    startSession(matchingUser)
-    successMessage.value = `Hello and welcome back, ${matchingUser.name}!`
     router.push('/')
   }
 }
@@ -133,10 +131,6 @@ const submitForm = () => {
         </div>
 
         <button type="submit">Log in</button>
-
-        <p v-if="successMessage" class="success-message" role="status">
-          {{ successMessage }}
-        </p>
 
         <p class="register-link">
           Don't have an account?
