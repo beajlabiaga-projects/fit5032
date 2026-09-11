@@ -1,11 +1,20 @@
 <script setup>
 import { ref } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
+import { currentUser, endSession, isAuthenticated } from '../auth/session'
 
 const accountMenu = ref(null)
 
+const router = useRouter()
+
 const closeAccountMenu = () => {
   accountMenu.value?.removeAttribute('open')
+}
+
+const logOut = () => {
+  endSession()
+  closeAccountMenu()
+  router.push('/')
 }
 </script>
 
@@ -18,11 +27,19 @@ const closeAccountMenu = () => {
       <RouterLink to="/learn">Learn</RouterLink>
       <RouterLink to="/discover">Discover</RouterLink>
       <details ref="accountMenu" class="account-menu">
-        <summary>Account</summary>
-
+        <summary>
+          {{ isAuthenticated ? currentUser.name : 'Account' }}
+        </summary>
+        <!--Account menu changes depending on whether user is logged in-->
         <div class="account-options">
-          <RouterLink to="/login" @click="closeAccountMenu">Log in</RouterLink>
-          <RouterLink to="/register" @click="closeAccountMenu">Register</RouterLink>
+          <template v-if="isAuthenticated">
+            <button type="button" @click="logOut">Log out</button>
+          </template>
+
+          <template v-else>
+            <RouterLink to="/login" @click="closeAccountMenu">Log in</RouterLink>
+            <RouterLink to="/register" @click="closeAccountMenu">Register</RouterLink>
+          </template>
         </div>
       </details>
 
@@ -105,6 +122,23 @@ nav a.router-link-exact-active {
   border: 1px solid #d9e2dc;
   border-radius: 0.4rem;
   box-shadow: 0 0.4rem 1rem rgba(24, 61, 40, 0.12);
+}
+
+.account-options button {
+  padding: 0.65rem 0.75rem;
+  color: #26352c;
+  font: inherit;
+  text-align: left;
+  white-space: nowrap;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.account-options button:hover {
+  color: #1f7a43;
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
 }
 
 .account-options a {
