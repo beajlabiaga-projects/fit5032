@@ -72,7 +72,7 @@ dl div {
   padding: 1rem 0;
   border-bottom: 1px solid #d9e2dc;
 }
-
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:last-child */
 dl div:last-child {
   border-bottom: 0;
 }
