@@ -1,4 +1,5 @@
 <script setup>
+import InitiativeRating from './InitiativeRating.vue'
 defineProps({
   initiative: {
     type: Object,
@@ -36,6 +37,8 @@ defineProps({
     </dl>
 
     <p class="availability">{{ initiative.availability }}</p>
+
+    <InitiativeRating :initiative-id="initiative.id" />
   </article>
 </template>
 
