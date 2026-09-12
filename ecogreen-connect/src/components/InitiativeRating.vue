@@ -37,9 +37,9 @@ const submitRating = () => {
   }
 
   const score = Number(selectedRating.value)
-
-  if (score < 1 || score > 5) {
-    message.value = 'Please select a rating from 1 to 5.'
+  //Accept only whole number ratings from 1 to 5
+  if (!Number.isInteger(score) || score < 1 || score > 5) {
+    message.value = 'Please select a number rating from 1 to 5.'
     return
   }
   //Only allow one rating per user for each initiative

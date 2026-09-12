@@ -61,7 +61,7 @@ const submitForm = () => {
 
     const availableUsers = [organiserAccount, ...storedUsers]
     const matchingUser = availableUsers.find(
-      (user) => user.email == normalisedEmail && user.password == formData.value.password,
+      (user) => user.email === normalisedEmail && user.password === formData.value.password,
     )
 
     if (!matchingUser) {
