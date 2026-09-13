@@ -74,8 +74,8 @@ const submitRating = () => {
     </p>
 
     <p v-else>No ratings yet.</p>
-
-    <form @submit.prevent="submitRating">
+    <!--Only logged in users can see rating form-->
+    <form v-if="isAuthenticated" @submit.prevent="submitRating">
       <label :for="`rating-${initiativeId}`">Your rating</label>
 
       <select :id="`rating-${initiativeId}`" v-model="selectedRating">
@@ -89,6 +89,8 @@ const submitRating = () => {
 
       <button type="submit">Submit rating</button>
     </form>
+
+    <p v-else class="rating-message">Please log in to rate this initiative.</p>
 
     <p v-if="message" class="rating-message" role="status">
       {{ message }}
