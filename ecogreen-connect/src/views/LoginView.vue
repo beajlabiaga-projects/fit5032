@@ -29,6 +29,8 @@ const validateEmail = (blur) => {
 
   if (!email) {
     if (blur) errors.value.email = 'Email is required.'
+  } else if (email.length > 200) {
+    if (blur) errors.value.email = 'Email must be under 200 characters'
   } else if (!validFormat) {
     if (blur) errors.value.email = 'Please enter a valid email address.'
   } else {
@@ -38,8 +40,12 @@ const validateEmail = (blur) => {
 
 // Check that password has been entered without showing the value.//
 const validatePassword = (blur) => {
+  const password = formData.value.password
+
   if (!formData.value.password) {
     if (blur) errors.value.password = 'Password is required.'
+  } else if (password.length > 60) {
+    if (blur) errors.value.password = 'Password length must be under 60 characters.'
   } else {
     errors.value.password = null
   }
@@ -112,6 +118,7 @@ const submitForm = () => {
             v-model="formData.password"
             :type="showPassword ? 'text' : 'password'"
             autocomplete="current-password"
+            maxlength="60"
             required
             :aria-invalid="Boolean(errors.password)"
             aria-describedby="login-password-error"

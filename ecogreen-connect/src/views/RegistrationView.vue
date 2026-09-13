@@ -20,14 +20,20 @@ const errors = ref({
 const successMessage = ref('')
 
 const showPassword = ref(false)
-// Validate each field so users can receive an error message//
+
+// Does not allow HTML code in the name field
 const validateName = (blur) => {
   const name = formData.value.name.trim()
+  const containsHtmlCharacters = /[<>]/.test(name)
 
   if (!name) {
     if (blur) errors.value.name = 'Name required.'
   } else if (name.length < 3) {
     if (blur) errors.value.name = 'Name must contain at least 3 characters.'
+  } else if (name.length > 50) {
+    if (blur) errors.value.name = 'Name must contain no more than 50 characters.'
+  } else if (containsHtmlCharacters) {
+    if (blur) errors.value.name = 'Name cannot contain HTML characters.'
   } else {
     errors.value.name = null
   }
@@ -39,6 +45,8 @@ const validateEmail = (blur) => {
 
   if (!email) {
     if (blur) errors.value.email = 'Email is required.'
+  } else if (email.length > 200) {
+    if (blur) errors.value.email = 'Email must contain no more than 254 characters.'
   } else if (!validFormat) {
     if (blur) errors.value.email = 'Please enter a valid email address.'
   } else {
@@ -57,6 +65,8 @@ const validatePassword = (blur) => {
     if (blur) errors.value.password = 'Password is required.'
   } else if (password.length < 8) {
     if (blur) errors.value.password = 'Password must contain at least 8 characters.'
+  } else if (password.length > 200) {
+    if (blur) errors.value.password = 'Password must contain no more than 128 characters.'
   } else if (!hasUppercase) {
     if (blur) errors.value.password = 'Password must contain at least one uppercase letter.'
   } else if (!hasLowercase) {
@@ -155,6 +165,7 @@ const clearForm = () => {
             v-model="formData.name"
             type="text"
             autocomplete="name"
+            maxlength="50"
             required
             :aria-invalid="Boolean(errors.name)"
             aria-describedby="name-error"
@@ -174,6 +185,7 @@ const clearForm = () => {
             v-model="formData.email"
             type="email"
             autocomplete="email"
+            maxlength="200"
             required
             :aria-invalid="Boolean(errors.email)"
             aria-describedby="email-error"
@@ -194,6 +206,7 @@ const clearForm = () => {
             :type="showPassword ? 'text' : 'password'"
             autocomplete="new-password"
             minlength="8"
+            maxlength="60"
             required
             :aria-invalid="Boolean(errors.password)"
             aria-describedby="password-error"
@@ -213,6 +226,7 @@ const clearForm = () => {
             v-model="formData.confirmPassword"
             :type="showPassword ? 'text' : 'password'"
             autocomplete="new-password"
+            maxlength="60"
             required
             :aria-invalid="Boolean(errors.confirmPassword)"
             aria-describedby="confirm-password-error"
