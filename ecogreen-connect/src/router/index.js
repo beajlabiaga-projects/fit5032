@@ -50,6 +50,18 @@ const router = createRouter({
       meta: { requiresAuth: true, requiredRole: 'organiser' },
     },
     {
+      path: '/organise/registrations',
+      name: 'registration-management',
+      component: () => import('../views/RegistrationManagementView.vue'),
+      meta: { requiresAuth: true, requiredRole: 'organiser' },
+    },
+    {
+      path: '/organise/resources',
+      name: 'organiser-resources',
+      component: () => import('../views/OrganiserResourcesView.vue'),
+      meta: { requiresAuth: true, requiredRole: 'organiser' },
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

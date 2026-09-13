@@ -8,10 +8,22 @@ import { currentUser } from '../auth/session'
     <h1>Organiser Dashboard</h1>
     <p>Welcome, {{ currentUser.name }}.</p>
 
-    <RouterLink to="/organise/initiatives" class="dashboard-card">
-      <h2>Manage Initiatives</h2>
-      <p>Create environmental initiatives and manage listings.</p>
-    </RouterLink>
+    <div class="dashboard-grid">
+      <RouterLink to="/organise/initiatives" class="dashboard-card">
+        <h2>Manage Initiatives</h2>
+        <p>Create environmental initiatives and manage listings.</p>
+      </RouterLink>
+
+      <RouterLink to="/organise/registrations" class="dashboard-card">
+        <h2>Registration Management</h2>
+        <p>View and manage participant registrations.</p>
+      </RouterLink>
+
+      <RouterLink to="/organise/resources" class="dashboard-card">
+        <h2>Organiser Resources</h2>
+        <p>Access guides and resources for organisers.</p>
+      </RouterLink>
+    </div>
   </main>
 </template>
 
@@ -37,13 +49,18 @@ import { currentUser } from '../auth/session'
 
 .dashboard-card {
   display: block;
-  max-width: 600px;
-  margin-top: 2rem;
   padding: 2rem;
   color: inherit;
   text-decoration: none;
   border: 1px solid #c8d2c9;
   border-radius: 12px;
   background-color: white;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 </style>
