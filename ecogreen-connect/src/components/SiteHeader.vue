@@ -2,6 +2,9 @@
 import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { currentUser, endSession, isAuthenticated } from '../auth/session'
+// End the Firebase session when the user logs out of the application.
+import { signOut } from 'firebase/auth'
+import { auth } from '../firebase'
 
 const accountMenu = ref(null)
 
@@ -10,11 +13,15 @@ const router = useRouter()
 const closeAccountMenu = () => {
   accountMenu.value?.removeAttribute('open')
 }
-
-const logOut = () => {
-  endSession()
-  closeAccountMenu()
-  router.push('/')
+// Log user out of firebase and remove their saved data (login details) from this app.
+const logOut = async () => {
+  try {
+    await signOut(auth)
+  } finally {
+    endSession()
+    closeAccountMenu()
+    router.push('/')
+  }
 }
 </script>
 

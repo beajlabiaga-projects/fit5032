@@ -10,6 +10,7 @@ export const isAuthenticated = computed(() => currentUser.value !== null)
 
 export const startSession = (user) => {
   currentUser.value = {
+    uid: user.uid,
     name: user.name,
     email: user.email,
     role: user.role || 'member',

@@ -5,6 +5,9 @@ import loginImage from '../assets/images/login.jpg'
 import { startSession } from '../auth/session'
 import { useRouter } from 'vue-router'
 import { organiserAccount } from '../data/accounts'
+// Authenticate submitted credentials through Firebase instead of stored passwords.
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../firebase'
 
 const formData = ref({
   email: '',
@@ -51,33 +54,53 @@ const validatePassword = (blur) => {
   }
 }
 
-// Validates form and compares if details exists in local storage.//
-const submitForm = () => {
+// Validates the form before sending credentials to firebase.//
+const submitForm = async () => {
   successMessage.value = ''
 
   validateEmail(true)
   validatePassword(true)
 
   const hasErrors = Object.values(errors.value).some((error) => error !== null)
-  // Retrieve registered users using Web Storage API
-  //https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
+
   if (!hasErrors) {
-    const storedUsers = JSON.parse(localStorage.getItem('ecogreenUsers')) || []
     const normalisedEmail = formData.value.email.trim().toLowerCase()
 
-    const availableUsers = [organiserAccount, ...storedUsers]
-    const matchingUser = availableUsers.find(
-      (user) => user.email === normalisedEmail && user.password === formData.value.password,
-    )
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        normalisedEmail,
+        formData.value.password,
+      )
 
-    if (!matchingUser) {
-      errors.value.password = 'Email or password is incorrect.'
-      return
+      const firebaseUser = userCredential.user
+      const storedUsers = JSON.parse(localStorage.getItem('ecogreenUsers')) || []
+
+      const storedProfile = storedUsers.find(
+        (user) => user.uid === firebaseUser.uid || user.email === firebaseUser.email,
+      )
+
+      const isOrganiser = firebaseUser.email === organiserAccount.email
+
+      // Combine firebase identity with the role information used by the application.
+      const sessionUser = {
+        uid: firebaseUser.uid,
+        name:
+          firebaseUser.displayName ||
+          (isOrganiser ? organiserAccount.name : storedProfile?.name || 'Member'),
+        email: firebaseUser.email,
+        role: isOrganiser ? 'organiser' : storedProfile?.role || 'member',
+      }
+
+      startSession(sessionUser)
+      router.push('/')
+    } catch (error) {
+      if (error.code === 'auth/too-many-requests') {
+        errors.value.password = 'Too many login attempts. Please try again later.'
+      } else {
+        errors.value.password = 'Email or password is incorrect.'
+      }
     }
-
-    //remember authenticated user after logging in and redirect to home page when logged in
-    startSession(matchingUser)
-    router.push('/')
   }
 }
 </script>
