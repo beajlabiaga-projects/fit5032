@@ -146,7 +146,7 @@ const submitForm = async () => {
       } else if (error.code === 'auth/weak-password') {
         errors.value.password = 'Please use a stronger password.'
       } else {
-        errors.value.email = `Registration could not be completed: ${error.code}`
+        errors.value.email = 'Registration could not be completed. Please try again.'
       }
     }
   }
