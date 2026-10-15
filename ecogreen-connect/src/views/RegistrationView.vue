@@ -2,6 +2,9 @@
 import { ref } from 'vue'
 import registrationImage from '../assets/images/registration.jpg'
 import { RouterLink } from 'vue-router'
+// to create account, save user's display name, then sign out to complete registration flow
+import { createUserWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
+import { auth } from '../firebase'
 
 const formData = ref({
   name: '',
@@ -92,7 +95,8 @@ const validateConfirmPassword = (blur) => {
   }
 }
 // Run every validation before accepting the registration form//
-const submitForm = () => {
+//firebase creates the account before displaying a success or error message
+const submitForm = async () => {
   successMessage.value = ''
 
   validateName(true)
@@ -104,28 +108,47 @@ const submitForm = () => {
   // Stores and retrieves registered users using WEB Storage API//
   //https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API //
   if (!hasErrors) {
-    const storedUsers = JSON.parse(localStorage.getItem('ecogreenUsers')) || []
+    const name = formData.value.name.trim()
     const normalisedEmail = formData.value.email.trim().toLowerCase()
 
-    const accountExists = storedUsers.some((user) => user.email == normalisedEmail)
+    try {
+      const userCredentioal = await createUserWithEmailAndPassword(
+        auth,
+        normalisedEmail,
+        formData.value.password,
+      )
+      await updateProfile(userCredentioal.user, { displayName: name })
 
-    if (accountExists) {
-      errors.value.email = 'An account already exists with this email address.'
-      return
+      //store only the application profile locally (friebase securely manages password)
+      const storedUsers = JSON.parse(localStorage.getItem('ecogreenUsers')) || []
+
+      storedUsers.push({
+        uid: userCredentioal.user.uid,
+        name,
+        email: normalisedEmail,
+        role: 'member',
+      })
+
+      localStorage.setItem('ecogreenUsers', JSON.stringify(storedUsers))
+      await signOut(auth)
+
+      successMessage.value = 'Registration successful. Log in with your account.'
+
+      formData.value = {
+        name: '',
+        email: '',
+        password: '',
+        confirmPassowrd: '',
+      }
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        errors.value.email = 'An account with this email address already exists.'
+      } else if (error.code === 'auth/weak-password') {
+        errors.value.password = 'Please use a stronger password.'
+      } else {
+        errors.value.email = 'Registration could not be completed. Please try again.'
+      }
     }
-
-    const newUser = {
-      name: formData.value.name.trim(),
-      email: normalisedEmail,
-      password: formData.value.password,
-      role: 'member',
-    }
-
-    storedUsers.push(newUser)
-
-    localStorage.setItem('ecogreenUsers', JSON.stringify(storedUsers))
-
-    successMessage.value = 'Registration successful. Log in with your account.'
   }
 }
 
