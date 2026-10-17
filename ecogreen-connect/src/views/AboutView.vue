@@ -110,8 +110,9 @@ const submitForm = async () => {
       </div>
 
       <div class="form-group">
-        <label for="support-email">Email address</label>
+        <label for="support-email">User email address</label>
         <input id="support-email" v-model="formData.email" type="email" />
+        <small>We’ll use this address to reply to your inquiry.</small>
       </div>
 
       <div class="form-group">
@@ -139,4 +140,133 @@ const submitForm = async () => {
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.support-page {
+  min-height: calc(100vh - 76px);
+  padding: 64px 24px;
+  background: #f4f2e9;
+  color: #173c2b;
+}
+
+.support-page > * {
+  width: min(100%, 760px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.eyebrow {
+  margin-bottom: 10px;
+  color: #287548;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+h1 {
+  margin: 0 0 14px;
+  color: #123d2a;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  line-height: 1.1;
+}
+
+.support-page > p:not(.eyebrow) {
+  margin-bottom: 32px;
+  color: #415248;
+  font-size: 1.05rem;
+}
+
+.support-form {
+  padding: 32px;
+  border: 1px solid #d6ddd6;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(19, 61, 42, 0.08);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: 700;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #9eafa5;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #24362c;
+  font: inherit;
+  box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus {
+  outline: 3px solid rgba(40, 117, 72, 0.2);
+  border-color: #287548;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input[type='file'] {
+  padding: 10px;
+}
+
+small {
+  color: #5e6d64;
+}
+
+button {
+  padding: 13px 22px;
+  border: 0;
+  border-radius: 8px;
+  background: #1f7141;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: #175a33;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.status-message {
+  margin: 18px 0 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+}
+
+.status-message.success {
+  background: #e5f4e9;
+  color: #155d35;
+}
+
+.status-message.error {
+  background: #fde8e7;
+  color: #a12622;
+}
+
+@media (max-width: 600px) {
+  .support-page {
+    padding: 40px 16px;
+  }
+
+  .support-form {
+    padding: 22px 18px;
+  }
+}
+</style>
