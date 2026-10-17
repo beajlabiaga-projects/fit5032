@@ -117,7 +117,7 @@ const registrationRows = [
     <header>
       <p class="eyebrow">Organiser</p>
       <h1>Registration Management</h1>
-      <p>Search, sort and review participant registrations for EcoGreen initiatives.</p>
+      <p>Search, sort and review (sample) participant registrations for EcoGreen initiatives.</p>
     </header>
 
     <InteractiveTable :columns="registrationColumns" :rows="registrationRows" />
