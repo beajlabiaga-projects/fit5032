@@ -6,9 +6,10 @@ import { startSession } from '../auth/session'
 import { useRouter } from 'vue-router'
 import { organiserAccount } from '../data/accounts'
 // Authenticate submitted credentials through Firebase instead of stored passwords.
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { auth } from '../firebase'
 
+const googleProvider = new GoogleAuthProvider()
 const formData = ref({
   email: '',
   password: '',
@@ -24,6 +25,31 @@ const successMessage = ref('')
 const showPassword = ref(false)
 
 const router = useRouter()
+
+// Sign in with Google and save the authenticated user in the application session.
+const signInWithGoogle = async () => {
+  errors.value.email = null
+  errors.value.password = null
+
+  try {
+    const userCredential = await signInWithPopup(auth, googleProvider)
+    const firebaseUser = userCredential.user
+    const isOrganiser = firebaseUser.email === organiserAccount.email
+
+    startSession({
+      uid: firebaseUser.uid,
+      name: firebaseUser.displayName || 'Member',
+      email: firebaseUser.email,
+      role: isOrganiser ? 'organiser' : 'member',
+    })
+
+    router.push('/')
+  } catch (error) {
+    if (error.code !== 'auth/popup-closed-by-user') {
+      errors.value.password = 'Google sign-in could not be completed. Please try again.'
+    }
+  }
+}
 
 // Validate the email and provide feedback when user leaves field.//
 const validateEmail = (blur) => {
@@ -161,6 +187,11 @@ const submitForm = async () => {
         </div>
 
         <button type="submit">Log in</button>
+
+        <p class="login-divider"><span>or</span></p>
+        <button type="button" class="google-button" @click="signInWithGoogle">
+          Continue with Google
+        </button>
 
         <p class="register-link">
           Don't have an account?

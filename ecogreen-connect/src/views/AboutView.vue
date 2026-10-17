@@ -9,7 +9,7 @@ const formData = ref({
 })
 
 const attachment = ref(null)
-const statusMessage = ref('')
+
 // Store the file selected by user so it can be attached to the email
 const handleAttachment = (event) => {
   attachment.value = event.target.files[0] || null
