@@ -276,6 +276,34 @@ button:hover {
   background-color: #185f35;
 }
 
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  color: #5f6b63;
+}
+
+.login-divider::before,
+.login-divider::after {
+  flex: 1;
+  height: 1px;
+  background-color: #b8c8bd;
+  content: '';
+}
+
+.google-button {
+  width: 100%;
+  color: #183d28;
+  background-color: #ffffff;
+  border: 1px solid #1f7a43;
+}
+
+.google-button:hover {
+  color: #ffffff;
+  background-color: #185f35;
+}
+
 button:focus-visible,
 a:focus-visible {
   outline: 3px solid #2167d5;
