@@ -133,9 +133,22 @@ const submitForm = async () => {
           accept=".pdf, .doc, .docx, .jpg, .jpeg, .png"
           @change="handleAttachment"
         />
+        <small>Options for attachment include: PDF, Word document or image.</small>
       </div>
 
-      <button type="submit">Send message</button>
+      <button type="submit" :disabled="isSending">
+        {{ isSending ? 'Sending…' : 'Send message' }}
+      </button>
+
+      <p
+        v-if="statusMessage"
+        class="status-message"
+        :class="statusType"
+        role="status"
+        aria-live="polite"
+      >
+        {{ statusMessage }}
+      </p>
     </form>
   </main>
 </template>
