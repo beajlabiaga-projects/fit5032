@@ -55,7 +55,7 @@ const logOut = async () => {
         </div>
       </details>
 
-      <RouterLink to="/about">About & Support</RouterLink>
+      <RouterLink to="/about">Contact Support</RouterLink>
     </nav>
   </header>
 </template>
