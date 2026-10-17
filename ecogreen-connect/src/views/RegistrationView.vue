@@ -172,7 +172,7 @@ const clearForm = () => {
 </script>
 
 <template>
-  <section class="registration-page">
+  <main class="registration-page">
     <div class="registration-panel">
       <header>
         <p class="eyebrow">Account</p>
@@ -294,7 +294,7 @@ const clearForm = () => {
       :src="registrationImage"
       alt="Blue and yellow bird perched on a branch."
     />
-  </section>
+  </main>
 </template>
 
 <style scoped>

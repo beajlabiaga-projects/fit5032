@@ -28,3 +28,16 @@ a {
 #app {
   min-height: 100vh;
 }
+
+/* make keyboard focus clear across the application
+WCAG 2.1 Success Criterion 2.4.7:
+https://www.w3.org/WAI/WCAG21/Understanding/focus-visible */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #2167d5;
+  outline-offset: 3px;
+}
