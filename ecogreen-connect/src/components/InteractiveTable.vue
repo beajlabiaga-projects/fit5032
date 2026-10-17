@@ -86,6 +86,30 @@ const sortArrow = (columnKey) => {
   return sortAscending.value ? '↑' : '↓'
 }
 
+// export the currently filtered table records as a CSV file.
+const exportCsv = () => {
+  const headings = props.columns.map((column) => column.label)
+
+  const records = filteredRows.value.map((row) =>
+    props.columns.map((column) => `"${String(row[column.key]).replaceAll('"', '""')}"`),
+  )
+
+  const csvContent = [headings, ...records].map((record) => record.join(',')).join('\n')
+  const csvFile = new Blob([csvContent], { type: 'text/csv;charset=utf-8' })
+  const downloadLink = document.createElement('a')
+
+  downloadLink.href = URL.createObjectURL(csvFile)
+  downloadLink.download = 'ecogreen-data.csv'
+  downloadLink.click()
+
+  URL.revokeObjectURL(downloadLink.href)
+}
+
+// open the browser print screen, where the user can save the table as a PDF.
+const exportPdf = () => {
+  window.print()
+}
+
 // return to page one whenever a search value changes.
 watch(
   [search, columnSearches],
@@ -98,6 +122,10 @@ watch(
 
 <template>
   <section class="table-panel">
+    <div class="export-buttons">
+      <button type="button" @click="exportCsv">Export CSV</button>
+      <button type="button" @click="exportPdf">Print / Save PDF</button>
+    </div>
     <label class="general-search">
       Search all columns
       <input v-model="search" type="search" placeholder="Search records" />
@@ -235,5 +263,28 @@ th button {
 .pagination button:disabled {
   cursor: not-allowed;
   opacity: 0.45;
+}
+
+/* keeps the table export actions together and easy to identify. */
+.export-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.export-buttons button {
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 6px;
+  background: #2f6f44;
+  color: white;
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.export-buttons button:hover,
+.export-buttons button:focus-visible {
+  background: #174b2d;
 }
 </style>
