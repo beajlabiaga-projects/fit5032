@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
+import InitiativeMap from '@/components/InitiativeMap.vue'
 import InitiativeCard from '@/components/InitiativeCard.vue'
 import { initiatives } from '@/data/initiatives.js'
 
@@ -45,6 +46,8 @@ const clearFilters = () => {
       <h1>Browse Local Initiatives</h1>
       <p>Explore environmental activities taking place across Melbourne.</p>
     </header>
+    <!-- Interactive map of Melbourne initiatives -->
+    <InitiativeMap />
 
     <section class="filter-bar" aria-label="Filter Initiatives">
       <div class="filter-field">
