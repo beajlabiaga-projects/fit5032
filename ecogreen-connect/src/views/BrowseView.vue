@@ -81,7 +81,7 @@ const clearFilters = () => {
 
       <button type="button" @click="clearFilters">Clear filters</button>
     </section>
-    <!-- Generate one reusable card for each initiative in the data array -->
+    <!-- generate one reusable card for each initiative in the data array -->
     <div v-if="filteredInitiatives.length" class="initiative-grid">
       <InitiativeCard
         v-for="initiative in filteredInitiatives"
