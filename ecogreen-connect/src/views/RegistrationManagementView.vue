@@ -1,7 +1,55 @@
 <script setup>
+import { computed, ref } from 'vue'
 import InteractiveTable from '../components/InteractiveTable.vue'
 
-// Define the columns displayed in the registration table.
+const registeredUsers = JSON.parse(localStorage.getItem('ecogreenUsers') || '[]')
+
+const selectedEmails = ref([])
+const bulkSubject = ref('')
+const bulkMessage = ref('')
+const bulkStatus = ref('')
+const isSending = ref(false)
+
+const canSendBulkEmail = computed(
+  () => selectedEmails.value.length > 0 && bulkSubject.value.trim() && bulkMessage.value.trim(),
+)
+
+const sendBulkEmail = async () => {
+  bulkStatus.value = ''
+  isSending.value = true
+
+  try {
+    const response = await fetch(import.meta.env.VITE_EMAIL_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        type: 'bulk',
+        recipients: selectedEmails.value,
+        subject: bulkSubject.value,
+        message: bulkMessage.value,
+      }),
+    })
+
+    const result = await response.json()
+
+    if (!response.ok) {
+      throw new Error(result.error || 'The bulk email could not be sent.')
+    }
+
+    bulkStatus.value = `Email sent to ${selectedEmails.value.length} selected users.`
+    selectedEmails.value = []
+    bulkSubject.value = ''
+    bulkMessage.value = ''
+  } catch (error) {
+    bulkStatus.value = error.message
+  } finally {
+    isSending.value = false
+  }
+}
+
+// define the columns displayed in the registration table
 const registrationColumns = [
   { key: 'id', label: 'ID' },
   { key: 'participant', label: 'Participant' },
@@ -11,7 +59,7 @@ const registrationColumns = [
   { key: 'status', label: 'Status' },
 ]
 
-// Sample registrations that organisers can search and review.
+// sample registrations that organisers can search and review.
 const registrationRows = [
   {
     id: 1,
@@ -120,6 +168,42 @@ const registrationRows = [
       <p>Search, sort and review (sample) participant registrations for EcoGreen initiatives.</p>
     </header>
 
+    <section class="bulk-email-panel">
+      <h2>Send bulk email</h2>
+      <p>Select registered website accounts and send the same message to all selected users.</p>
+
+      <form @submit.prevent="sendBulkEmail">
+        <fieldset>
+          <legend>Select recipients</legend>
+
+          <label v-for="user in registeredUsers" :key="user.email" class="recipient-option">
+            <input v-model="selectedEmails" type="checkbox" :value="user.email" />
+            {{ user.name }} — {{ user.email }}
+          </label>
+
+          <p v-if="registeredUsers.length === 0">No registered website accounts are available.</p>
+        </fieldset>
+
+        <label class="bulk-field">
+          Subject
+          <input v-model="bulkSubject" type="text" required />
+        </label>
+
+        <label class="bulk-field">
+          Message
+          <textarea v-model="bulkMessage" rows="5" required></textarea>
+        </label>
+
+        <button type="submit" :disabled="!canSendBulkEmail || isSending">
+          {{ isSending ? 'Sending…' : 'Send to selected users' }}
+        </button>
+
+        <p v-if="bulkStatus" role="status" aria-live="polite">
+          {{ bulkStatus }}
+        </p>
+      </form>
+    </section>
+
     <InteractiveTable :columns="registrationColumns" :rows="registrationRows" />
   </main>
 </template>
@@ -160,5 +244,76 @@ h1 {
 
 header > p:last-child {
   max-width: 700px;
+}
+
+.bulk-email-panel {
+  width: min(1320px, 100%);
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border: 1px solid #d6ddd6;
+  border-radius: 12px;
+  background: white;
+  box-sizing: border-box;
+}
+
+.bulk-email-panel h2 {
+  margin-top: 0;
+  color: #174b2d;
+}
+
+.bulk-email-panel form {
+  display: grid;
+  gap: 1rem;
+}
+
+.bulk-email-panel fieldset {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid #9daf9f;
+  border-radius: 8px;
+}
+
+.recipient-option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.recipient-option input {
+  width: auto;
+}
+
+.bulk-field {
+  display: grid;
+  gap: 0.4rem;
+  font-weight: 700;
+}
+
+.bulk-field input,
+.bulk-field textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #9daf9f;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.bulk-email-panel button {
+  justify-self: start;
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-radius: 6px;
+  background: #2f6f44;
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.bulk-email-panel button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 </style>
