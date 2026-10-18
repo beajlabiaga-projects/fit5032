@@ -74,7 +74,8 @@ export const initiatives = [
     category: 'Urban Greening',
     location: 'Carlton Neigbourhood Learning Center',
     date: '7 November 2026',
-    description: 'Gather to construct DIY trellises, set up green walls, and plant climbing vines.',
+    description:
+      'Gather with local volunteers to construct DIY trellises, set-up green walls, and plant climbing vines in community spaces.',
     image: vinewallInitativeImage,
     imageAlt: 'Man in a yellow suit driving a red tractor through a greenhouse.',
     accessibility: 'Wheelchair accessibile paths and parking available.',

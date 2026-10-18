@@ -1,12 +1,33 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
-const formData = ref({
-  name: '',
-  email: '',
-  subject: '',
-  message: '',
-})
+// Keep an unfinished support message in the browser.
+// https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+const CONTACT_DRAFT_KEY = 'ecogreenContactDraft'
+const savedDraft = JSON.parse(localStorage.getItem(CONTACT_DRAFT_KEY) || 'null')
+
+const formData = ref(
+  savedDraft || {
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  },
+)
+
+watch(
+  formData,
+  (newFormData) => {
+    const hasContent = Object.values(newFormData).some((value) => value.trim())
+
+    if (hasContent) {
+      localStorage.setItem(CONTACT_DRAFT_KEY, JSON.stringify(newFormData))
+    } else {
+      localStorage.removeItem(CONTACT_DRAFT_KEY)
+    }
+  },
+  { deep: true },
+)
 
 const attachment = ref(null)
 const fileInput = ref(null)
