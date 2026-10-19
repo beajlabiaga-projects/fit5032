@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import LoginView from '../views/LoginView.vue'
+import WeatherView from '../views/WeatherView.vue'
 
 let isAuthenticated = false
 
@@ -25,6 +26,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: LoginView,
+  },
+  {
+    path: '/WeatherCheck',
+    name: 'GetWeather',
+    component: WeatherView,
   },
 ]
 
