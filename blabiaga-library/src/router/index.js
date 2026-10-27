@@ -5,6 +5,7 @@ import LoginView from '../views/LoginView.vue'
 import FirebaseSigninView from '../views/FirebaseSigninView.vue'
 import FirebaseRegisterView from '../views/FirebaseRegisterView.vue'
 import FirebaseLogoutView from '../views/FirebaseLogoutView.vue'
+import AddBookView from '../views/AddBookView.vue'
 
 let isAuthenticated = false
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/FireLogout',
     name: 'FireLogout',
     component: FirebaseLogoutView,
+  },
+  {
+    path: '/AddBook',
+    name: 'AddBook',
+    component: AddBookView,
   },
   {
     path: '/',
