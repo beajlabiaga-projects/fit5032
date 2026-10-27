@@ -1,0 +1,60 @@
+<template>
+  <h1>Create an Account</h1>
+  <p><input type="text" placeholder="Email" v-model="email" /></p>
+  <p><input type="password" placeholder="Password" v-model="password" /></p>
+  <p><button @click="register">Save to Firebase</button></p>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { useRouter } from 'vue-router'
+
+const email = ref('')
+const password = ref('')
+const router = useRouter()
+const auth = getAuth()
+
+const register = () => {
+  createUserWithEmailAndPassword(auth, email.value, password.value)
+    .then(() => {
+      console.log('Firebase Register Successful!')
+      router.push('/FireLogin')
+    })
+    .catch((error) => {
+      console.log(error.code)
+    })
+}
+</script>
+
+<style scoped>
+input {
+  background-color: #ffffff;
+  color: #1e293b;
+  border: 1px solid #93c5fd;
+  border-radius: 8px;
+  padding: 12px 16px;
+  width: 300px;
+  font-size: 16px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px #dbeafe;
+}
+
+button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+}
+</style>
