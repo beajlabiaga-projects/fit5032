@@ -16,15 +16,20 @@ const router = useRouter()
 const auth = getAuth()
 
 const signin = () => {
-  signInWithEmailAndPassword(getAuth(), email.value, password.value)
-    .then(() => {
-      console.log('Firebase Sign in Successful!')
-      router.push('/')
-      console.log(auth.currentUser) // To check the current user signed in
-    })
-    .catch((error) => {
-      console.log(error.code)
-    })
+  signInWithEmailAndPassword(getAuth(), email.value, password.value).then(() => {
+    console.log('Firebase Sign in Successful!')
+
+    const currentUser = auth.currentUser
+    console.log(currentUser)
+    console.log('Logged-in email:', currentUser.email)
+
+    const role = currentUser.email?.trim().toLowerCase() === 'admin@library.com' ? 'Admin' : 'User'
+
+    console.log('Signed in as:', role)
+    console.log('Signed in as:', role)
+
+    router.push('/')
+  })
 }
 </script>
 
